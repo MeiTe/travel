@@ -1,0 +1,81 @@
+
+
+<!-- 头部 start -->
+<script>
+    $(function () {
+        //这里显示的是，在用户登录后显示用户的姓名在右上角
+        $.get("user/findOne",{},function (data) {
+            //拼接字符串
+            var msg="欢迎回来："+data.name;
+            $("#userName").html(msg)
+        });
+
+
+        //动态加载导航栏的分类信息
+        $.get("category/findAll",{},function(data){
+           //定义第一个默认
+           var lis ='<li class="nav-active"><a href="index.html">首页</a></li>' ;
+           //遍历查询出来的列表
+            for (var i = 0; i < data.length ; i++) {
+                //进行数组里面字符串的拼接
+                var li='<li><a href="route_list.html?cid="'+data[i].cid+'>'+data[i].cname+'</a></li>';
+                lis+=li;
+            }
+            //定义最后一个默认
+            lis+='<li><a href="favoriterank.html">收藏排行榜</a></li>';
+            //把拼接的列表保存到ul中
+            $("#category").html(lis);
+        });
+
+
+
+    });
+</script>
+<!--获取用户的用户名-->
+
+    <header id="header">
+        <div class="top_banner">
+            <img src="images/top_banner.jpg" alt="">
+        </div>
+        <div class="shortcut">
+            <!-- 未登录状态  -->
+            <div class="login_out">
+                <a href="login.html">登录</a>
+                <a href="register.html">注册</a>
+            </div>
+            <!-- 登录状态  -->
+            <div class="login">
+            	
+                <span id="userName"></span>
+                <a href="myfavorite.html" class="collection">我的收藏</a>
+                <a href="javascript:location.href='exitServlet';">退出</a>
+            </div>
+        </div>
+        <div class="header_wrap">
+            <div class="topbar">
+                <div class="logo">
+                    <a href="/"><img src="images/logo.jpg" alt=""></a>
+                </div>
+                <div class="search">
+                    <input name="" type="text" placeholder="请输入路线名称" class="search_input" autocomplete="off">
+                    <a href="javascript:;" class="search-button">搜索</a>
+                </div>
+                <div class="hottel">
+                    <div class="hot_pic">
+                        <img src="images/hot_tel.jpg" alt="">
+                    </div>
+                    <div class="hot_tel">
+                        <p class="hot_time">客服热线(9:00-6:00)</p>
+                        <p class="hot_num">400-618-9090</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- 头部 end -->
+     <!-- 首页导航 -->
+    <div class="navitem">
+        <ul class="nav" id="category">
+        </ul>
+    </div>
+    
